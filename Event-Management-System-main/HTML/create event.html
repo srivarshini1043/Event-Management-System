@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Event Form</title>
+<link rel="stylesheet" href="/CSS/create eventstyle.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+  <script src="../checkUser.js" ></script>
+  <script src=
+"https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>EVENTSPARK</h1>
+        <ul>
+            <li><a href="/HTML/index.html" class="link active">Home</a></li>
+            <li><a href="/HTML/services.html" class="link">Services</a></li>
+            <li><a href="/HTML/events.html" class="link">Events</a></li>
+            <li><a href="/HTML/register.html" class="active"> Signup</a></li>
+        </ul>
+    </nav>
+<div class="container">
+  <h2>Create Event</h2>
+  <form id="eventForm" onSubmit="addEvent(event)" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="eventTitle">Event Title:</label>
+      <input type="text" id="eventTitle" name="eventTitle" required>
+    </div>
+    <div class="form-group">
+      <label for="eventDescription">Event Description:</label>
+      <textarea id="eventDescription" name="eventDescription" rows="4" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="eventType">Type</label>
+      <select required id="eventType" name="eventType" class="input-group">
+        <option></option>
+        <option value="marriage">Marriage Event</option>
+        <option value="birthday">birthday Event</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="eventDate">Date:</label>
+      <input type="date" id="eventDate" name="eventDate" required>
+    </div>
+    <div class="form-group">
+      <label for="eventTime">Time:</label>
+      <input type="time" id="eventTime" name="eventTime" required>
+    </div>
+    <div class="form-group">
+      <label for="brochure">Brochure:</label>
+      <input type="file" id="brochure" name="brochure" accept=".png,.jpeg,.gif,.mp4,.jpg" required>
+    </div>
+    <div class="form-group">
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" required>
+    </div>
+    <div class="form-group">
+      <label for="attendees">Attendees:</label>
+      <input type="text" id="attendees" name="attendees" placeholder="Enter email addresses separated by commas" required>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+
+  
+  
+
+  async function addEvent(event){
+
+    event.preventDefault()
+        const eventTitle = document.getElementById('eventTitle').value.trim();
+        const eventDescription = document.getElementById('eventDescription').value.trim();
+        const eventDate = document.getElementById('eventDate').value;
+        var eventTime = document.getElementById('eventTime').value;
+        const brochure = document.getElementById('brochure').files[0];
+        const location = document.getElementById('location').value.trim();
+        const attendees = document.getElementById('attendees').value.trim();
+        const eventType=document.getElementById('eventType').value.trim();
+        const formdata= document.getElementById("eventForm")
+
+        const upload=new FileReader();
+        upload.readAsDataURL(brochure);
+        const uploadpromise=new Promise(function(resolve,reject){
+
+          upload.onloadend=async function(event){
+             
+          await  resolve( event.target.result )
+       
+          }
+            })
+         const uploadbase64=await uploadpromise.then(data=>data)
+
+        // Check required fields are not empty
+        if (!eventTitle || !eventDescription || !eventDate || !eventTime || !brochure || !location || !attendees) {
+            alert('Please fill out all fields.');
+            return;
+        }
+
+        // Check valid date and time
+        const currentDate = new Date().toISOString().split('T')[0];
+        if (eventDate < currentDate) {
+            alert('Please select a future date.');
+            return;
+        }
+
+
+
+  if(brochure.size>=12561392){
+    alert("upload max length of 10Mb")
+return;
+  }
+
+        
+        const username=localStorage.getItem("user")
+        
+
+        $.ajax({
+          type: 'POST',
+          url: 'http://localhost:8081/addevent',
+          data:JSON.stringify({"eventtitle":eventTitle,user:username,"eventdescription":eventDescription,brochure:uploadbase64,eventtype:eventType,"eventdate":eventDate,"eventtime":eventTime,"location":location,"attendees":attendees}),
+          contentType: 'application/json; charset=utf-8;',
+          dataType: 'json',success: function(response) {
+           
+       if(response){
+        Swal.fire({
+          title: "successfully created Event",
+          html: "Go To upcoming Event: <a href='/HTML/upcomingEvent.html'>Go</a>",
+          text: "successfully Created",
+          icon: "success", allowOutsideClick: "false" 
+        });
+        formdata.reset()
+       } else{
+
+
+        Swal.fire({
+          title: "Already Exist",
+          text: "Failed to Created "+eventType+ " Event",
+          icon: "error", allowOutsideClick: "false" 
+        });
+
+       }  
+          },
+          error: function(xhr, status, error) {
+              alert(error)
+          }
+        
+      })
+      
+    }//        window.location.href = '/HTML/index.html'; 
+  
+
+
+
+</script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+</body>
+</html>

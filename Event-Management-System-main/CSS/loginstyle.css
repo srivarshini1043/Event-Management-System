@@ -1,0 +1,115 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body{
+  font-family: Arial, sans-serif;
+  background-image: linear-gradient(16deg, rgba(159,131,240, 0.21) 0%, rgba(159,131,240, 0.21) 25%,transparent 25%, transparent 96%,rgba(144,0,0, 0.02) 96%, rgba(144,0,0, 0.02) 100%),linear-gradient(236deg, rgba(194,210,255, 0.02) 0%, rgba(194,210,255, 0.02) 53%,transparent 53%, transparent 59%,rgb(239,235,255) 59%, rgb(239,235,255) 100%),linear-gradient(284deg, rgb(253,245,255) 0%, rgb(253,245,255) 46%,transparent 46%, transparent 71%,rgba(137,101,242, 0.11) 71%, rgba(137,101,242, 0.11) 100%),linear-gradient(316deg, rgba(255,255,255, 0.02) 0%, rgba(255,255,255, 0.02) 26%,transparent 26%, transparent 49%,rgb(248,244,255) 49%, rgb(248,244,255) 100%),linear-gradient(90deg, rgba(214,200,255, 0.21),rgba(214,200,255, 0.21));
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100svw;
+  height: 100svh;
+}
+:root{
+  --primary-color:        #8965f2;
+  --secondary-color:      #f28965;
+  --primary-font:         #000000;
+  --secondary-font:       #ffffff;
+}
+
+/* Navigation Bar */
+nav{
+  padding: 1em 2em;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--primary-color);
+  color: var(--secondary-font);
+}
+nav ul{
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2em;
+}
+nav a{
+  text-decoration: none;
+  color: var(--secondary-font);
+  transition: all 1s;
+  padding: 0.6em 1em;
+}
+nav a:hover{
+  transform: scale(1.15);
+}
+/* login container */
+
+.container{
+  display: flex;
+  height: 500px;
+  width: 800px;
+  border: 1px solid var(--primary-color);
+  margin: auto;
+  margin-top: 50px;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+}
+.form h1{
+  font-size: 3rem;
+  margin: 40px;
+
+}
+.box{
+  padding: 12px;
+  width: 65%;
+  margin: 15px;
+  border: 1px solid black;
+  outline: none;
+  border-radius: 20px;
+
+}
+#submit{
+  padding: 12px 30px;
+  width: 40%;
+  margin-top: 20px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+}
+#submit:hover{
+  cursor: pointer;
+  background-color: #750000;
+}
+.new-user{
+  margin-top: 20px;
+}
+a{
+  text-decoration: none;
+  color:#00a2ffb4;
+}
+.bold a:hover{
+  color: #8965f2;
+}
+.required{
+  color: red;
+}
+.image-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
+.image-container img{
+  width: 450px;
+  height: 450pxpx;
+
+}

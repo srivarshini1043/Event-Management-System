@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="with=device-width, initial-scale=1.0">
+        <title>EVENT SPARK</title>
+        <link rel="stylesheet" href="/CSS/indexstyle.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <h1>EVENTSPARK</h1>
+            <ul>
+                <li><a href="/HTML/index.html" class="link active">Home</a></li>
+                <li><a href="/HTML/services.html" class="link">Services</a></li>
+                <li><a href="/HTML/events.html" class="link">Events</a></li>
+                <li><a href="/HTML/register.html" class="active"> Signup</a></li>
+            </ul>
+        </nav>
+
+        <div class="text-box">
+            <h1>EVENT MANAGEMENT SYSTEM</h1>
+            <p>where seamless coordination<br> transforms plans into unforgettable experience<br>Event management is 
+              about orchestrating moments that linger in memories and spark inspiration</p>
+            </div>
+<script>
+    let token=localStorage.getItem("token")
+        if(!token){
+            window.location.href="/HTML/login.html"
+        }
+
+function exit() {
+
+    localStorage.clear();
+    window.location.href="/HTML/index.html"
+    
+}
+
+</script>
+</body>
+</html>
+

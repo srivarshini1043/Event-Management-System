@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Event Form</title>
+<link rel="stylesheet" href="/CSS/create eventstyle.css">
+<link rel="stylesheet" href="/CSS/upcomingEvent.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="../checkUser.js" ></script>
+
+<nav class="navbar">
+    <h1>EVENTSPARK</h1>
+    <ul>
+        <li><a href="/HTML/index.html" class="link active">Home</a></li>
+        <li><a href="/HTML/services.html" class="link">Services</a></li>
+        <li><a href="/HTML/events.html" class="link">Events</a></li>
+        <li><a href="/HTML/register.html" class="active"> Signup</a></li>
+    </ul>
+</nav>
+</head>
+<body>
+
+    <div id="createEvent"><a href="/HTML/create event.html"> + Create Event</a></div>
+<div class="event-list-container"></div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+<script>
+    $.ajax({
+        type: 'GET',
+        url: "http://localhost:8081/getallEvent",crossDomain:true, 
+        headers: { 'Access-Control-Allow-Origin': '*' },
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function(response) {
+          if(response.length>0){
+        response.map((data,index)=>(
+
+
+            $(".event-list-container").append(
+
+`
+            <div class="box" id="child-${index}">
+                <div class="idecater">upcoming Event</div>
+
+                <div class="eventdelete">
+               
+                </div>
+                <div class="title">
+                 <h3>${data.eventtype}</h3>
+                </div>
+         
+                <div class="body">
+                 <div class="media">
+                     <img  src="${data.brochure}" width="150" height="100"/>
+                 </div>
+         
+                 <p>
+                 ${data.eventdescription}
+                 </p>
+         
+             </div>
+         
+            
+             <div class="footer">
+         
+                 <div class="l-footer">
+           <div> <label>EventDate:</label>${data.eventdate}</div>
+           <div> <label>EventTime:</label>${data.eventtime}</div>
+                 </div>
+         
+             <div class="r-footer">
+                 <div> <label>EventLocation:</label>${data.location}</div>
+             </div>
+         </div>
+         
+            
+         </div>`
+            )
+
+        ))
+          }else{
+            $(".event-list-container").append("<p>No Events Avaliable</p>")  
+
+          }
+        },
+        error: function(xhr, status, error) {
+            console.log(xhr,status,error)
+            toastr.error(error, status);
+        }
+    
+    })
+
+
+
+    function onDelete(boxid,id){
+        const uri=new URL( 'http://localhost:8081/DeleteEvent')
+        uri.searchParams.set("id",id)
+
+        $.ajax({
+            type: 'Delete',
+            url: uri,crossDomain:true, headers: { 'Access-Control-Allow-Origin': '*' },
+            contentType: 'application/json; charset=utf-8',
+            data:{},
+             dataType: 'json',
+            success: function(response) {
+              if(response){
+              $("#"+boxid).remove()
+              }else{    
+                toastr.error("Can't Delete Something Worg!");
+              }
+                
+            },
+            error: function(xhr, status, error) {
+               
+                toastr.error(error, status);
+            }
+        
+        }) 
+
+
+    }
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body{
+  font-family: Arial, sans-serif;
+  background-image: linear-gradient(16deg, rgba(159,131,240, 0.21) 0%, rgba(159,131,240, 0.21) 25%,transparent 25%, transparent 96%,rgba(144,0,0, 0.02) 96%, rgba(144,0,0, 0.02) 100%),linear-gradient(236deg, rgba(194,210,255, 0.02) 0%, rgba(194,210,255, 0.02) 53%,transparent 53%, transparent 59%,rgb(239,235,255) 59%, rgb(239,235,255) 100%),linear-gradient(284deg, rgb(253,245,255) 0%, rgb(253,245,255) 46%,transparent 46%, transparent 71%,rgba(137,101,242, 0.11) 71%, rgba(137,101,242, 0.11) 100%),linear-gradient(316deg, rgba(255,255,255, 0.02) 0%, rgba(255,255,255, 0.02) 26%,transparent 26%, transparent 49%,rgb(248,244,255) 49%, rgb(248,244,255) 100%),linear-gradient(90deg, rgba(214,200,255, 0.21),rgba(214,200,255, 0.21));
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100svw;
+  height: 100svh;
+}
+:root{
+  --primary-color:        #8965f2;
+  --secondary-color:      #f28965;
+  --primary-font:         #000000;
+  --secondary-font:       #ffffff;
+}
+
+/* Navigation Bar */
+nav{
+  padding: 1em 2em;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--primary-color);
+  color: var(--secondary-font);
+}
+nav ul{
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 5em;
+}
+nav a{
+  text-decoration: none;
+  color: var(--secondary-font);
+  transition: all 1s;
+  padding: 0.6em 1em;
+}
+nav a:hover{
+  transform: scale(1.15);
+}
+nav a.active{
+  color: var(--primary-color);
+  background-color: var(--secondary-font);
+  border-radius: 5px;
+}
+
+/* Signup Form */
+.signup{
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 1px 1px 15px var(--primary-font);
+  background-color: var(--secondary-font);
+}
+.container{
+  display: flex;
+}
+.image-container{
+  display: flex;
+}
+.image-container img{
+  width: 400px;
+  border-radius: 10px;
+}
+.form-container{
+  padding: 2em;
+  width: 400px;
+}
+.form-container h1{
+  font-size: 26px;
+  color: var(--primary-color);
+  margin-bottom: 0.5em;
+}
+
+/* Form Inputs / Labels */
+.input-group {
+  position: relative;
+  margin-bottom: 10px;
+}
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+}
+.input-group i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  color: #ccc;
+}
+
+/* Password Validation */
+.password-validation {
+  text-align: start;
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 5px;
+  opacity: 0.6;
+}
+.password-validation .validation {
+  flex: 1 1 calc(50% - 10px); /* Adjusted flex property to accommodate the gap */
+  margin-bottom: 0.5em;
+}
+
+
+/* Submit btn */
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Login Switch */
+.switch {
+  margin: 1em;
+  text-align: center;
+}
+.switch a {
+  color: #007bff;
+  text-decoration: none;
+  transition: 1s;
+}
+.switch a:hover {
+  color: var(--primary-color);
+  transition: 1s;
+}
+
+
+@media (max-width: 485px) {
+  nav ul{
+      gap: 1em;
+      align-items: center;
+      font-size: 14px;
+  }
+  .image-container{
+      display: none;
+  }
+  .form-container{
+      width: 300px;
+  }
+  .password-validation{
+      flex-wrap: nowrap;
+      flex-direction: column;
+  }
+}

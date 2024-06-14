@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/CSS/eventstyle.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+  />
+  <link rel="stylesheet" href="/CSS/upcomingEvent.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>EVENTSPARK</h1>
+        <ul>
+            <li><a href="/HTML/index.html" class="link active">Home</a></li>
+            <li><a href="/HTML/services.html" class="link">Services</a></li>
+            <li><a href="/HTML/events.html" class="link">Events</a></li>
+            <li><a href="/HTML/register.html" class="active"> Signup</a></li>
+            <li><div class="user">
+                <i class="fa fa-user"></i>
+                <div class="userpanel"> 
+                    <i class="fa fa-user" onclick="exit()">Exit</i>
+                     <div class="title">  
+                     <h1>User</h1>
+                     <p> </p>
+                     </div>
+
+                     <div class="body">
+                        <i class="fa fa-panel"></i>  <a href=""> User Panel</a>
+                     </div>
+                    
+                    </div>
+            
+            </div>
+         
+        </li>
+
+           
+        </ul>
+    </nav>
+  <div class="userpanelpage">
+    <h1>User Panel</h1>
+    <div></div>
+    <div class="event-list-container">
+
+    </div>
+   
+
+  </div>
+   <script>
+        let token=localStorage.getItem("token")
+        if(!token){
+            window.location.href="/HTML/login.html"
+        }
+
+function exit() {
+
+    localStorage.clear();
+    window.location.href="/HTML/index.html"
+    
+}
+    const user=localStorage.getItem("user")
+    const uri=new URL( 'http://localhost:8081/getuserEvent')
+    uri.searchParams.set("user",user)
+    $.ajax({
+        type: 'GET',
+        url: uri,crossDomain:true, 
+        headers: { 'Access-Control-Allow-Origin': '*' },
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function(response) {
+          if(response.length>0){
+        response.map((data,index)=>(
+
+
+            $(".event-list-container").append(
+
+`
+            <div class="box" id="child-${index}">
+                <div class="idecater">upcoming Event</div>
+
+               
+
+                <div class="title">
+                 <h3>${data.eventtype}</h3>
+                </div>
+         
+                <div class="body">
+                <span class="userdelete" onclick={onDelete('child-${index}',${data.id})}>Delete</span>
+         .....
+             </div>
+         
+            
+             
+         
+            
+         </div>`
+            )
+
+        ))
+          }else{
+            $(".event-list-container").append("<p>No Records Avaliable</p>") 
+
+          }
+        },
+        error: function(xhr, status, error) {
+            console.log(xhr,status,error)
+            toastr.error(error, status);
+        }
+    
+    })
+
+
+
+    function onDelete(boxid,id){
+        const uri=new URL( 'http://localhost:8081/DeleteEvent')
+        uri.searchParams.set("id",id)
+
+        $.ajax({
+            type: 'Delete',
+            url: uri,crossDomain:true, headers: { 'Access-Control-Allow-Origin': '*' },
+            contentType: 'application/json; charset=utf-8',
+            data:{},
+             dataType: 'json',
+            success: function(response) {
+              if(response){
+              $("#"+boxid).remove()
+              }else{    
+                toastr.error("Can't Delete Something Worg!");
+              }
+                
+            },
+            error: function(xhr, status, error) {
+               
+                toastr.error(error, status);
+            }
+        
+        }) 
+
+
+    }
+</script>
+
+</body>
+</html>

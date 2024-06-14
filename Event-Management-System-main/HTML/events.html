@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/CSS/eventstyle.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+  />
+    <script src="../checkUser.js" ></script>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>EVENTSPARK</h1>
+        <ul>
+            <li><a href="/HTML/index.html" class="link active">Home</a></li>
+            <li><a href="/HTML/services.html" class="link">Services</a></li>
+            <li><a href="/HTML/events.html" class="link">Events</a></li>
+            <li><a href="/HTML/register.html" class="active"> Signup</a></li>
+            <li><div class="user">
+                <i class="fa fa-user"></i>
+                <div class="userpanel"> 
+                    <i class="fa fa-user" onclick="exit()">Exit</i>
+                     <div class="title">  
+                     <h1>User</h1>
+                     <p> </p>
+                     </div>
+
+                     <div class="body">
+                        <i class="fa fa-panel"></i>  <a href="/HTML/Userpanel.html"> User Panel</a>
+
+                     </div>
+                    
+                    </div>
+            
+            </div>
+         
+        </li>
+
+           
+        </ul>
+    </nav>
+    <div class="event">
+        <button type="submit" class="addButton" id="addbutton" >Create Event</button>
+        <button type="submit" class="eventButton" id="eventlist" >Upcoming Events</button>
+    </div>
+    <script>
+        const eventlist = document.getElementById('eventlist');
+
+
+        eventlist.addEventListener('click', () => {
+            window.location.href = '/HTML/upcomingEvent.html'; // Change to your desired URL
+        });
+        
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const button = document.getElementById('addbutton');
+            
+            button.addEventListener('click', () => {
+                window.location.href = '/HTML/create event.html'; // Change to your desired URL
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const btn = document.getElementById('eventbutton');
+            
+            
+            btn.addEventListener('click', () => {
+                window.location.href = '/HTML/create event.html'; // Change to your desired URL
+            });
+
+
+          
+        });
+
+       
+         
+const panel=document.querySelector(".userpanel p")
+const user=document.querySelector(".user")
+const username=localStorage.getItem("user")
+
+const node=document.createTextNode(username)
+panel.appendChild(node)
+    </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  body{
+    font-family: Arial, sans-serif;
+    background-image: linear-gradient(16deg, rgba(135, 132, 143, 0.21) 0%, rgba(159,131,240, 0.21) 25%,transparent 25%, transparent 96%,rgba(144,0,0, 0.02) 96%, rgba(144,0,0, 0.02) 100%),linear-gradient(236deg, rgba(194,210,255, 0.02) 0%, rgba(194,210,255, 0.02) 53%,transparent 53%, transparent 59%,rgb(239,235,255) 59%, rgb(239,235,255) 100%),linear-gradient(284deg, rgb(253,245,255) 0%, rgb(253,245,255) 46%,transparent 46%, transparent 71%,rgba(137,101,242, 0.11) 71%, rgba(137,101,242, 0.11) 100%),linear-gradient(316deg, rgba(255,255,255, 0.02) 0%, rgba(255,255,255, 0.02) 26%,transparent 26%, transparent 49%,rgb(248,244,255) 49%, rgb(248,244,255) 100%),linear-gradient(90deg, rgba(214,200,255, 0.21),rgba(214,200,255, 0.21));
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100svw;
+    height: 100svh;
+ 
+  }
+  .userpanelpage{
+    text-align: center;
+    padding: 10px;
+    text-shadow: #000000;
+   font-size: medium;
+   font-variant: small-caps;
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  .user{
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding: 20px;
+    color: #000000;
+    padding: 15px;
+    border-radius: 100%;
+    font-variant: small-caps;
+    text-align: center;
+    justify-content: center;
+    background-color: white;
+    position: relative;
+  }
+  .user>i{
+    margin-right: 5px;
+    display:inline-block;
+    margin-right: 10px;
+  }
+  .userpanel{
+    display: none;
+  }
+
+ .user:hover>.userpanel{
+    padding: 30px;
+    display:block;
+  border-top-right-radius: 10px;
+    transform: translate(-80%,5%);
+   margin-right: 400px;
+    width: max-content;
+    position:absolute;
+    background:radial-gradient(rgba(136, 179, 229, 0.941),rgba(147, 147, 232, 0.795));
+    height:max-content;
+  }
+
+  .user:hover>.userpanel>.title{
+  color: #055fba;
+  padding: 10px;
+  }
+
+  .user:hover>.userpanel i{
+    position: absolute;
+    left: 0;
+    margin-top: 10px;
+    padding: 5px;
+    top: 0;
+  }
+  :root{
+    --primary-color:        #8865f2e1;
+    --secondary-color:      #f28965;
+    --primary-font:         #000000;
+    --secondary-font:       #ffffff;
+  }
+  
+  /* Navigation Bar */
+  nav{
+    padding: 1em 2em;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--primary-color);
+    color: var(--secondary-font);
+  }
+  nav ul{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 2em;
+  }
+  nav a{
+    text-decoration: none;
+    color: var(--secondary-font);
+    transition: all 1s;
+    padding: 0.6em 1em;
+  }
+  nav a:hover{
+    transform: scale(1.15);
+  }
+  
+/* event container   */
+.eventButton{
+  margin-top: 20px;
+  margin-left: 30%;
+  padding: 20px 190px;
+}
+Button{  
+  padding: 20px 212px;
+  margin-top: 150px;
+  background-color: rgba(81, 14, 238, 0.616);
+  align-items: center;
+  margin-left: 30%;
+  border-radius: 10px;
+  border: 1px solid white;
+  font-size: 1.2em;
+  color: white;
+  font-weight: bold;
+}

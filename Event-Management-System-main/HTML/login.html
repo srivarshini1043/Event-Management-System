@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management System - Login</title>
+    <link rel="stylesheet" href="/CSS/loginstyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
+
+</head>
+<body>
+    <nav class="navbar">
+        <h1>EVENTSPARK</h1>
+        <ul>
+            <li><a href="/HTML/index.html" class="link active">Home</a></li>
+            <li><a href="/HTML/services.html" class="link">Services</a></li>
+            <li><a href="/HTML/events.html" class="link">Events</a></li>
+            <li><a href="/HTML/register.html" class="active"> Signup</a></li>
+        </ul>
+    </nav>
+    <!-- Form Container -->
+    <div class="container">
+        <form class="form" onSubmit="login(event)" >       
+            <h1>LOGIN</h1>
+                <div>
+                    <label for="username"><i class="fa-solid fa-user"></i>Username <span class="required">*</span></label>
+                    <input  class="box"  type="email" name="userName" id="userName"  required/>
+                </div>
+                <div>
+                    <label for="password"><i class="fa-solid fa-lock"></i>Password <span class="required">*</span></label>
+                    <input class="box" id="password" name="password" type="password"/>
+                </div>
+                <button id="submit" class="login-btn" type="submit" onclick="validateForm()">Login</button>
+                <div class="new-user">
+                        Don't have an account? <span class="bold"><a href="/HTML/register.html">Register</a></span>
+                </div>
+                </form>
+                 <!-- Image Container -->
+            <div class="image-container">
+                <img src="/Images/option image.png" alt="Signup Vector"/>
+            </div>
+            </div>
+
+            <script>
+           
+                function login(event){
+                event.preventDefault();
+                const {userName,password}=event.target
+                let url = new URL("http://localhost:8081/getuser");
+                url.searchParams.set('user', userName.value);
+                url.searchParams.set('password', password.value);  
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,crossDomain:true, headers: { 'Access-Control-Allow-Origin': '*' },
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function(response) {
+                      if(response){
+                        var char="jkgkkegkegaruayrayauyfuyayfyuayfyuafyufua";
+                        var differnt="33@!345$%^&*656688990-0-065543453432trl454-5=-1=1";
+                        var token="";
+                        for(let i=0;i<char.length;i++){
+                            let random=Math.floor(Math.random() * char.length);
+                              token+=char[random]+differnt[random]
+                        }
+                        localStorage.setItem("token", token);
+                        localStorage.setItem("user",userName.value);
+                        window.location.href="index.html"
+                      }else{
+                        toastr.error("Not Valid User");  
+
+                      }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr,status,error)
+                        toastr.error(error, status);
+                    }
+                
+                })
+            }
+            </script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+ 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        </body>
+</html>
