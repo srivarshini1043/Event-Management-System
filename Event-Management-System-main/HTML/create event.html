@@ -43,15 +43,14 @@
         <option value="birthday">birthday Event</option>
       </select>
     </div>
-
-    <div class="form-group">
-      <label for="eventDate">Date:</label>
-      <input type="date" id="eventDate" name="eventDate" required>
-    </div>
-    <div class="form-group">
-      <label for="eventTime">Time:</label>
-      <input type="time" id="eventTime" name="eventTime" required>
-    </div>
+  <div class="form-group">
+      <label for="eventStartDate">Start Date:</label>
+      <input type="date" id="eventStartDate" name="eventStartDate" required>
+  </div>
+  <div class="form-group">
+      <label for="eventEndDate">End Date:</label>
+      <input type="date" id="eventEndDate" name="eventEndDate" required>
+  </div>
     <div class="form-group">
       <label for="brochure">Brochure:</label>
       <input type="file" id="brochure" name="brochure" accept=".png,.jpeg,.gif,.mp4,.jpg" required>
@@ -59,10 +58,6 @@
     <div class="form-group">
       <label for="location">Location:</label>
       <input type="text" id="location" name="location" required>
-    </div>
-    <div class="form-group">
-      <label for="attendees">Attendees:</label>
-      <input type="text" id="attendees" name="attendees" placeholder="Enter email addresses separated by commas" required>
     </div>
     <button type="submit">Submit</button>
   </form>
@@ -78,11 +73,11 @@
     event.preventDefault()
         const eventTitle = document.getElementById('eventTitle').value.trim();
         const eventDescription = document.getElementById('eventDescription').value.trim();
-        const eventDate = document.getElementById('eventDate').value;
+        const eventStartDate = document.getElementById('eventStartDate').value;
+        const eventEndDate = document.getElementById('eventEndDate').value;
         var eventTime = document.getElementById('eventTime').value;
         const brochure = document.getElementById('brochure').files[0];
         const location = document.getElementById('location').value.trim();
-        const attendees = document.getElementById('attendees').value.trim();
         const eventType=document.getElementById('eventType').value.trim();
         const formdata= document.getElementById("eventForm")
 
@@ -104,12 +99,22 @@
             return;
         }
 
-        // Check valid date and time
+        // Check valid start date and end date
         const currentDate = new Date().toISOString().split('T')[0];
-        if (eventDate < currentDate) {
-            alert('Please select a future date.');
-            return;
-        }
+            if (eventStartDate < currentDate) {
+                alert('Please select a future start date.');
+                return;
+            }
+            if (eventEndDate < eventStartDate) {
+                alert('End date must be after the start date.');
+                return;
+            }
+
+            // Calculate number of days
+            const start = new Date(eventStartDate);
+            const end = new Date(eventEndDate);
+            const numberOfDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+
 
 
 
@@ -125,7 +130,9 @@ return;
         $.ajax({
           type: 'POST',
           url: 'http://localhost:8081/addevent',
-          data:JSON.stringify({"eventtitle":eventTitle,user:username,"eventdescription":eventDescription,brochure:uploadbase64,eventtype:eventType,"eventdate":eventDate,"eventtime":eventTime,"location":location,"attendees":attendees}),
+          data:JSON.stringify({"eventtitle":eventTitle,user:username,"eventdescription":eventDescription,brochure:uploadbase64,eventtype:eventType,"eventstartdate": eventStartDate,
+                    "eventenddate": eventEndDate,
+                    "numberofdays": numberOfDays,"location":location}),
           contentType: 'application/json; charset=utf-8;',
           dataType: 'json',success: function(response) {
            
@@ -154,7 +161,7 @@ return;
         
       })
       
-    }//        window.location.href = '/HTML/index.html'; 
+  }
   
 
 
